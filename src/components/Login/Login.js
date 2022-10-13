@@ -7,9 +7,12 @@ import Button from '../UI/Button/Button'
 const emailReducer = (state, action) => {
     if(action.type === 'USER_INPUT')
     {
-        return { value: action.val, isValid: action.valid.includes('@') }
+        return { value: action.val, isValid: action.val.includes('@') }
     }
-    // return {value : '', isValid:false}
+    if (action.type === "INPUT_BLUR"){
+        return { value : state.value, isValid: state.value.includes('@')}
+    }
+    return {value : '', isValid:false}
 }
 
 export default function Login(props) {
@@ -22,7 +25,7 @@ export default function Login(props) {
 
     const [emailState, dispatchEmail] = useReducer(emailReducer, {
         value :'',
-        isValid: false,
+        isValid: undefined,
     })
 
     useEffect (() => {
