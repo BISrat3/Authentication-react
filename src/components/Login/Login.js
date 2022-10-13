@@ -11,12 +11,21 @@ export default function Login(props) {
     const [passwordIsValid, setPasswordIsValid] =useState();
     const [formIsValid, setFormIsValid] = useState(false);
 
-
+    // to handle side effect - are http request. 
+    // useEffects are executed in response to something, it could be loading anything that is related to action. 
     useEffect(()=>{
+        const identifier = setTimeout(() =>{
         console.log("Checking form validity!")
         setFormIsValid(
             enteredEmail.includes('@') && enteredPassword.trim().length >6)
-    },[ enteredEmail, enteredPassword])
+        }, 500);
+        
+
+        return () =>{
+            console.log("Running Clean up")
+            clearTimeout(identifier)
+        }
+    }, [enteredEmail, enteredPassword])
 
     const emailChangeHandler = (event) =>{
         setEnteredEmail(event.target.value);
