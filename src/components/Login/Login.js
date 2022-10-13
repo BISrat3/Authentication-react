@@ -13,6 +13,7 @@ export default function Login(props) {
 
 
     useEffect(()=>{
+        console.log("Checking form validity!")
         setFormIsValid(
             enteredEmail.includes('@') && enteredPassword.trim().length >6)
     },[ enteredEmail, enteredPassword])
