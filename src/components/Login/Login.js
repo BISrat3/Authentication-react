@@ -96,8 +96,8 @@ export default function Login(props) {
     }
 
     const validatePasswordHandler = () =>{
-        dispatchPassword({type : 'INPUT_BLUR'})
         // setPasswordIsValid (enteredPassword.trim().length >6)
+        dispatchPassword({type : 'INPUT_BLUR'})
     }
 
     const submitHandler = (event) =>{
