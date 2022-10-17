@@ -1,7 +1,7 @@
 import React, {useContext}from 'react'
 
 import AuthContext from '../../store/auth-context'
-import classes from'./Navigation.moudle.css'
+import classes from'./Navigation.module.css'
 
 export default function Navigation() {
    const ctx = useContext(AuthContext)
