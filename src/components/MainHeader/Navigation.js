@@ -13,7 +13,7 @@ export default function Navigation() {
     // }
     // )}
     // </AuthContext.Consumer>
-    <nav>
+    <nav className={classes.nav}>
         <ul>
             {ctx.isLoggedIn && (
                 <li>

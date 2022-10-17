@@ -35,8 +35,12 @@ export default function Login(props) {
     // const [passwordIsValid, setPasswordIsValid] =useState();
     const [formIsValid, setFormIsValid] = useState(false);
 
-    const authCtx = useContext (AuthContext)
+    
 
+    const [emailState, dispatchEmail] = useReducer(emailReducer, {
+        value :'',
+        isValid: null,
+    })
 
     const [passwordState, dispatchPassword] = useReducer
        ( passwordReducer, {
@@ -44,10 +48,7 @@ export default function Login(props) {
         isValid: null,
        });
 
-    const [emailState, dispatchEmail] = useReducer(emailReducer, {
-        value :'',
-        isValid: undefined,
-    })
+    const authCtx = useContext (AuthContext)
 
     const emailInputRef = useRef();
     const passwordInputRef = useRef();
@@ -65,14 +66,14 @@ export default function Login(props) {
     // to handle side effect - are http request. 
     // useEffects are executed in response to something, it could be loading anything that is related to action. 
     useEffect(()=>{
-        const identifier = setTimeout(() =>{
+        const identifier = setTimeout(() => {
         console.log("Checking form validity!")
-        setFormIsValid(
+        setFormIsValid (
             emailIsValid && passwordIsValid)
         }, 500);
         
 
-        return () =>{
+        return () => {
             console.log("Running Clean up")
             clearTimeout(identifier)
         }
@@ -94,11 +95,11 @@ export default function Login(props) {
         // setEnteredPassword (event.target.value)
         dispatchPassword({type: 'USER_INPUT', val: event.target.value})
 
-        setFormIsValid(
-            emailState.isValid && event.target.value.trim().length >6)
+        // setFormIsValid(
+        //     emailState.isValid && event.target.value.trim().length >6)
     }
 
-    const validateEmailHandler = () =>{
+    const validateEmailHandler = () => {
         // setEmailIsValid (emailState.value.includes('@')) or
         // setEmailIsValid (emailState.isValid) or
         dispatchEmail({type: 'INPUT_BLUR'})
@@ -117,7 +118,7 @@ export default function Login(props) {
         else if (!emailIsValid){
             emailInputRef.current.focus();
         }
-        else{
+        else {
             passwordInputRef.current.focus();
         }
     }
