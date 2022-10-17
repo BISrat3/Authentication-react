@@ -37,7 +37,7 @@ export default function Login(props) {
     const [passwordState, dispatchPassword] = useReducer
        ( passwordReducer, {
         value :'',
-        isValid: undefined,
+        isValid: null,
        });
 
     const [emailState, dispatchEmail] = useReducer(emailReducer, {
@@ -53,21 +53,23 @@ export default function Login(props) {
          }
     }, [])
 
+    const {isValid : emailIsValid} = emailState;
+    const {isValid: passwordIsValid } = passwordState
     // to handle side effect - are http request. 
     // useEffects are executed in response to something, it could be loading anything that is related to action. 
-    // useEffect(()=>{
-    //     const identifier = setTimeout(() =>{
-    //     console.log("Checking form validity!")
-    //     setFormIsValid(
-    //         enteredEmail.includes('@') && enteredPassword.trim().length >6)
-    //     }, 500);
+    useEffect(()=>{
+        const identifier = setTimeout(() =>{
+        console.log("Checking form validity!")
+        setFormIsValid(
+            emailIsValid && passwordIsValid)
+        }, 500);
         
 
-    //     return () =>{
-    //         console.log("Running Clean up")
-    //         clearTimeout(identifier)
-    //     }
-    // }, [enteredEmail, enteredPassword])
+        return () =>{
+            console.log("Running Clean up")
+            clearTimeout(identifier)
+        }
+    }, [emailIsValid, passwordIsValid])
 
     const emailChangeHandler = (event) =>{
         // setEnteredEmail(event.target.value);
@@ -76,9 +78,9 @@ export default function Login(props) {
             val: event.target.value
         })
 
-        setFormIsValid(
-           event.target.value.includes('@') && passwordState.isValid
-        )
+        // setFormIsValid(
+        //    event.target.value.includes('@') && passwordState.isValid
+        // )
     }
 
     const passwordChangeHandler = (event) => {
