@@ -8,6 +8,7 @@ export default function MainHeader(props) {
     <header className={classes ['main-header']}>
         <h1>A Typical Page</h1>
         {/* <Navigation  onLogout= {props.onLogout} /> */}
+        {/* we can use either of hte method */}
         <Navigation/>
     </header>
   )
